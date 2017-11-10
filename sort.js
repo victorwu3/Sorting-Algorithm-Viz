@@ -23,13 +23,14 @@ document.addEventListener('DOMContentLoaded', ()=> {
   resetData();
   drawBars(data);
 
+  insertionSort(data);
   // betterSelectionSort(data);
-  mergeSort(data, compare);
-  debugger
+  // data = mergeSort(data, compare);
+  // drawBars(data);
 })
 
 function resetData() {
-  length = 50;
+  length = 30;
 
   data = [];
 
@@ -131,7 +132,7 @@ function betterSelectionSort(data) {
   }, 20);
 }
 
-compare = function (left, right) {
+function compare(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
 }
 
@@ -141,28 +142,79 @@ function mergeSort(data, compare) {
   const midpoint = Math.floor(data.length / 2);
   const sortedLeft = mergeSort(data.slice(0, midpoint), compare);
   const sortedRight = mergeSort(data.slice(midpoint), compare);
-
+  // debugger
   return merge(sortedLeft, sortedRight, compare);
 }
 
 function merge(left, right, func) {
   let merged = [];
-  while (left.length && right.length) {
-    switch (compare(left[0], right[0])) {
-      case -1:
-        merged.push(left.shift());
-        break
-      case 0:
-        merged.push(left.shift());
-        break
-      case 1:
-        merged.push(right.shift());
-        break
+
+    while (left.length && right.length) {
+      left[0].color = "red";
+      right[0].color = "red";
+      switch (compare(left[0].num, right[0].num)) {
+        case -1:
+          merged.push(left.shift());
+          break
+        case 0:
+          merged.push(left.shift());
+          break
+        case 1:
+          merged.push(right.shift());
+          break
+      }
+      debugger
     }
-  }
+    setTimeout(redrawBars(), 500);
 
   return merged = merged.concat(left).concat(right);
+
 }
+
+function insertionSort(data) {
+  var i, j;
+  j = 1;
+  i = 0;
+  var swapped;
+  data[0].color = "blue";
+
+  sort = setInterval(function() {
+    debugger
+    if (swapped === false) {
+      i = j - 1;
+    }
+    if (j < data.length) {
+      if (i >= 0) {
+        if (data[i].num >= data[i+1].num) {
+          data[i+1].color = "red";
+          swapped = true;
+          swapEl(i+1, i);
+          // redrawBars();
+          data[i+1].color="blue"
+        } else {
+          swapped = false;
+          j++;
+        }
+        redrawBars();
+        data[i+1].color="blue"
+        i--;
+      } else {
+        j++;
+        i = j - 1;
+      }
+
+    } else {
+      clearInterval(sort);
+    }
+    data[0].color = "blue";
+
+    redrawBars();
+  }, 100);
+}
+
+
+
+
 
 
 
