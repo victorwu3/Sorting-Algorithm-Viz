@@ -37,12 +37,12 @@ document.addEventListener('DOMContentLoaded', ()=> {
   // insertionSort(data);
   // bubbleSort(data);
   // betterSelectionSort(data);
-  data = mergeSort(data, compare);
-  redrawBars();
+  mergeSort(data, 0, data.length - 1);
+  // redrawBars();
 })
 
 function resetData() {
-  length = 64;
+  length = 30;
 
   data = [];
 
@@ -85,7 +85,7 @@ function drawBars(data) {
 }
 
 function redrawBars() {
-  // debugger
+  debugger
   var rects = svg.selectAll("rect").data(data).transition().duration(50);
 
   rects.attr("x", function(el, i) {
@@ -150,41 +150,93 @@ function compare(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
 }
 
-function mergeSort(data, compare) {
-  if (data.length <= 1) return data;
+// function mergeSort(data, compare) {
+//   if (data.length <= 1) return data;
+//
+//   const midpoint = Math.floor(data.length / 2);
+//   const sortedLeft = mergeSort(data.slice(0, midpoint), compare);
+//   const sortedRight = mergeSort(data.slice(midpoint), compare);
+//   // debugger
+//   return merge(sortedLeft, sortedRight, compare);
+// }
+//
+// function merge(left, right, func) {
+//   let merged = [];
+//
+//     while (left.length && right.length) {
+//       left[0].color = "red";
+//       right[0].color = "red";
+//       switch (compare(left[0].num, right[0].num)) {
+//         case -1:
+//           merged.push(left.shift());
+//           break
+//         case 0:
+//           merged.push(left.shift());
+//           break
+//         case 1:
+//           merged.push(right.shift());
+//           break
+//       }
+//       debugger
+//     }
+//
+//   merged = merged.concat(left).concat(right);
+//   debugger
+//   redrawBars();
+//   return merged
+// }
 
-  const midpoint = Math.floor(data.length / 2);
-  const sortedLeft = mergeSort(data.slice(0, midpoint), compare);
-  const sortedRight = mergeSort(data.slice(midpoint), compare);
-  // debugger
-  return merge(sortedLeft, sortedRight, compare);
+function mergeSort(data, lower, higher) {
+  if (lower < higher) {
+      var mid = Math.floor((lower + higher) / 2);
+      mergeSort(data, lower, mid);
+      mergeSort(data, mid + 1, higher);
+      merge(data, lower, mid, higher);
+  }
 }
 
-function merge(left, right, func) {
-  let merged = [];
+function merge(data, lower, mid, higher) {
+    var i = lower;
+    var j = mid + 1;
+    var k = 0;
+    var mergearr = [];
 
-    while (left.length && right.length) {
-      left[0].color = "red";
-      right[0].color = "red";
-      switch (compare(left[0].num, right[0].num)) {
-        case -1:
-          merged.push(left.shift());
-          break
-        case 0:
-          merged.push(left.shift());
-          break
-        case 1:
-          merged.push(right.shift());
-          break
-      }
+    while (i < j && j <= higher) {
       debugger
+        if (data[i].num <= data[j].num) {
+            mergearr[k] = data[i];
+            k++;
+            i++;
+        } else {
+            mergearr[k] = data[j];
+            k++;
+            j++;
+        }
     }
 
-  merged = merged.concat(left).concat(right);
-  debugger
-  redrawBars();
-  return merged
+    if (i === j) {
+      debugger
+        while (j < higher) {
+            mergearr[k] = data[j];
+            k++;
+            j++;
+        }
+    } else if (j > higher) {
+      debugger
+        while (i < j) {
+            mergearr[k] = data[i];
+            k++;
+            i++;
+        }
+    }
 
+    for (var a = 0; a <= k; a++) {
+        console.log(a);
+        data[a] = mergearr[a];
+        console.log(data[a]);
+    }
+    redrawBars();
+    return data;
 }
 
 function insertionSort(data) {
