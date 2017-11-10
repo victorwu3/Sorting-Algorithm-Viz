@@ -4,7 +4,7 @@ var svg;
 var data;
 var state = {default: 0, selected: 1}
 const scale = d3.scaleLinear().domain([1, 40]).range([10,400])
-
+var nums;
 
 
 document.addEventListener('DOMContentLoaded', ()=> {
@@ -22,8 +22,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
   // debugger
   resetData();
   drawBars(data);
-  // selectionSort(data);
-  betterSelectionSort(data);
+
+  // betterSelectionSort(data);
+  mergeSort(data, compare);
+  debugger
 })
 
 function resetData() {
@@ -34,18 +36,17 @@ function resetData() {
   for (var i = 0; i < length; i++) {
     data.push( { num: Math.ceil((Math.random() * length)), color: "gray" } )
   }
+  nums = data.map( (el) => el.num )
 }
 
 function swapEl(x, y) {
   var temp = data[x];
   data[x] = data[y];
   data[y] = temp;
-  // data[x], data[y] = data[y], data[x];
 }
 
 function drawBars(data) {
   // reset drawing
-  // document.getElementById("array").innerHTML = "";
   d3.select("svg").selectAll("*").remove();
 
   var rects = svg.selectAll("rect").data(data).enter().append("rect");
@@ -93,36 +94,6 @@ function redrawBars() {
   });
 }
 
-
-// var i = 0
-// function selectionSort(data) {
-//   var swap = false;
-//   var min_idx = i;
-//
-//   setTimeout(function() {
-//
-//     if (i < data.length) {
-//       for (var j = i + 1; j < data.length; j++) {
-//         // debugger
-//         data[j].color = "red";
-//         if (data[j].num < data[min_idx].num) {
-//           swap = true;
-//           min_idx = j;
-//         }
-//         data[j].color = "gray"
-//       }
-//       if (swap) {
-//         swapEl(min_idx, i);
-//       }
-//
-//       redrawBars();
-//       i++;
-//       selectionSort(data);
-//     }
-//   }, 100);
-// }
-
-
 function betterSelectionSort(data) {
   var swap, i = 0, j = i + 1, min_idx = i
   swap = false;
@@ -159,3 +130,49 @@ function betterSelectionSort(data) {
     j++;
   }, 20);
 }
+
+compare = function (left, right) {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
+function mergeSort(data, compare) {
+  if (data.length <= 1) return data;
+
+  const midpoint = Math.floor(data.length / 2);
+  const sortedLeft = mergeSort(data.slice(0, midpoint), compare);
+  const sortedRight = mergeSort(data.slice(midpoint), compare);
+
+  return merge(sortedLeft, sortedRight, compare);
+}
+
+function merge(left, right, func) {
+  let merged = [];
+  while (left.length && right.length) {
+    switch (compare(left[0], right[0])) {
+      case -1:
+        merged.push(left.shift());
+        break
+      case 0:
+        merged.push(left.shift());
+        break
+      case 1:
+        merged.push(right.shift());
+        break
+    }
+  }
+
+  return merged = merged.concat(left).concat(right);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//
