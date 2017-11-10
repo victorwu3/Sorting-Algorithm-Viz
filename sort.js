@@ -9,10 +9,22 @@ var nums;
 
 document.addEventListener('DOMContentLoaded', ()=> {
   document.querySelector("#reset").addEventListener("click", () => {
-    debugger
+    // debugger
     resetData();
-    drawBars(data);
   });
+
+  document.querySelector("#selection").addEventListener("click", () => {
+    resetData();
+    betterSelectionSort(data);
+  })
+  document.querySelector("#insertion").addEventListener("click", () => {
+    resetData();
+    insertionSort(data);
+  })
+  document.querySelector("#bubble").addEventListener("click", () => {
+    resetData();
+    bubbleSort(data);
+  })
 
   svg = d3.select('#array')
           .append("svg")
@@ -21,16 +33,16 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
   // debugger
   resetData();
-  drawBars(data);
 
-  insertionSort(data);
+  // insertionSort(data);
+  // bubbleSort(data);
   // betterSelectionSort(data);
-  // data = mergeSort(data, compare);
-  // drawBars(data);
+  data = mergeSort(data, compare);
+  redrawBars();
 })
 
 function resetData() {
-  length = 30;
+  length = 64;
 
   data = [];
 
@@ -38,6 +50,7 @@ function resetData() {
     data.push( { num: Math.ceil((Math.random() * length)), color: "gray" } )
   }
   nums = data.map( (el) => el.num )
+  drawBars(data);
 }
 
 function swapEl(x, y) {
@@ -72,6 +85,7 @@ function drawBars(data) {
 }
 
 function redrawBars() {
+  // debugger
   var rects = svg.selectAll("rect").data(data).transition().duration(50);
 
   rects.attr("x", function(el, i) {
@@ -129,7 +143,7 @@ function betterSelectionSort(data) {
     }
 
     j++;
-  }, 20);
+  }, 30);
 }
 
 function compare(left, right) {
@@ -165,21 +179,20 @@ function merge(left, right, func) {
       }
       debugger
     }
-    setTimeout(redrawBars(), 500);
 
-  return merged = merged.concat(left).concat(right);
+  merged = merged.concat(left).concat(right);
+  debugger
+  redrawBars();
+  return merged
 
 }
 
 function insertionSort(data) {
-  var i, j;
-  j = 1;
-  i = 0;
+  var i = 0, j = 1;
   var swapped;
   data[0].color = "blue";
 
   sort = setInterval(function() {
-    debugger
     if (swapped === false) {
       i = j - 1;
     }
@@ -189,7 +202,6 @@ function insertionSort(data) {
           data[i+1].color = "red";
           swapped = true;
           swapEl(i+1, i);
-          // redrawBars();
           data[i+1].color="blue"
         } else {
           swapped = false;
@@ -202,20 +214,75 @@ function insertionSort(data) {
         j++;
         i = j - 1;
       }
-
     } else {
       clearInterval(sort);
     }
     data[0].color = "blue";
 
     redrawBars();
-  }, 100);
+  }, 30);
 }
 
+function bubbleSort(data) {
+  var i = 0;
+  var sorted = true;
+  var j = data.length - 1;
+
+  sort = setInterval(function() {
+    if (i < j) {
+      data[i].color = "red";
+      data[i+1].color = "red";
+      if (data[i].num >= data[i+1].num) {
+        sorted = false;
+        redrawBars();
+        swapEl(i, i+1);
+      }
+      data[i].color = "gray";
+      i++
+    } else {
+      data[j].color = "blue"
+      if (!sorted) {
+        i = 0;
+        j--;
+        sorted=true;
+      }
+      else {
+        data.forEach(el => {
+          el.color = "blue"
+        })
+        clearInterval(sort);
+      }
+    }
+    redrawBars();
+  }, 30)
+}
+
+function betterMergeSort(data) {
+
+  var n = 1, i = 1;
+  sort = setInterval(function() {
+    if (n < 6) {
+      if (i <= (data.length / (Math.pow(2,n)))) {
 
 
 
 
+
+      } else {
+        i = 1;
+        n++;
+      }
+      redrawBars();
+      i++;
+    } else {
+      clearInterval(sort);
+    }
+
+    redrawBars();
+
+  }, 30);
+
+}
 
 
 
