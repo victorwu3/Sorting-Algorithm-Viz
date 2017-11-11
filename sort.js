@@ -35,18 +35,15 @@ document.addEventListener('DOMContentLoaded', ()=> {
   // debugger
   resetData();
 
-  // insertionSort(data);
-  // bubbleSort(data);
-  // betterSelectionSort(data);
 // debugger
 mergeSort(data, 0, data.length - 1);
 // debugger
   var newdata = Object.values(funqueue)
   newdata = newdata.map(el=> Object.values(el));
   sort = setInterval(function() {
-    // debugger
+    debugger
     if (newdata.length > 0) {
-      debugger
+      // debugger
       redrawBars(newdata.shift());
     } else {
       clearInterval(sort);
@@ -213,28 +210,33 @@ function merge(data, lower, mid, higher) {
         }
     }
 
-    // // debugger
-    // var a = 0;
-    // sort = setInterval(function() {
-    //   if (a < k) {
-    //     data[(lower+a)] = mergearr[a];
-    //     redrawBars();
-    //   } else {
-    //     clearInterval(sort);
-    //     return data;
-    //   }
-    //   a++;
-    //   // a++;
-    // }, 1);
-
-
     for (var a = 0; a < k; a++) {
         data[(lower+a)] = mergearr[a];
         var temp = Object.assign({}, data)
         // debugger
+        // temp[(lower+a)].color = "red";
+        debugger
         // funqueue.push(wrapFunction(redrawBars, this, [temp] ))
         funqueue.push(temp)
     }
+
+
+    // var a = 0;
+    // sort = setInterval(function(){
+    //   if (a < k) {
+    //     data[(lower+a)] = mergearr[a];
+    //     data[(lower+a)].color = "red";
+    //     debugger
+    //     redrawBars(data);
+    //   } else {
+    //     clearInterval(sort)
+    //   }
+    //   a++;
+    // }, 500)
+
+
+
+
     return data;
 
 }
