@@ -1,10 +1,11 @@
 var w = 800;
-var h = 500;
+var h = 700;
 var svg;
 var data;
 var state = {default: 0, selected: 1}
 const scale = d3.scaleLinear().domain([1, 40]).range([10,400])
 var nums;
+var funqueue = [];
 
 
 document.addEventListener('DOMContentLoaded', ()=> {
@@ -37,12 +38,26 @@ document.addEventListener('DOMContentLoaded', ()=> {
   // insertionSort(data);
   // bubbleSort(data);
   // betterSelectionSort(data);
-  mergeSort(data, 0, data.length - 1);
-  // redrawBars();
+// debugger
+mergeSort(data, 0, data.length - 1);
+// debugger
+  var newdata = Object.values(funqueue)
+  newdata = newdata.map(el=> Object.values(el));
+  sort = setInterval(function() {
+    // debugger
+    if (newdata.length > 0) {
+      debugger
+      redrawBars(newdata.shift());
+    } else {
+      clearInterval(sort);
+    }
+  }, 30)
+
+// redrawBars(data);
 })
 
 function resetData() {
-  length = 30;
+  length = 64;
 
   data = [];
 
@@ -84,7 +99,7 @@ function drawBars(data) {
   rects.attr("fill", "gray");
 }
 
-function redrawBars() {
+function redrawBars(data) {
   // debugger
   var rects = svg.selectAll("rect").data(data).transition().duration(50);
 
@@ -134,11 +149,11 @@ function betterSelectionSort(data) {
         swap = false;
         i++;
       }
-      redrawBars();
+      redrawBars(data);
       data[j].color = "gray";
     } else {
       data[i].color = "blue";
-      redrawBars();
+      redrawBars(data);
       clearInterval(sort);
     }
 
@@ -150,41 +165,11 @@ function compare(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
 }
 
-// function mergeSort(data, compare) {
-//   if (data.length <= 1) return data;
-//
-//   const midpoint = Math.floor(data.length / 2);
-//   const sortedLeft = mergeSort(data.slice(0, midpoint), compare);
-//   const sortedRight = mergeSort(data.slice(midpoint), compare);
-//   // debugger
-//   return merge(sortedLeft, sortedRight, compare);
-// }
-//
-// function merge(left, right, func) {
-//   let merged = [];
-//
-//     while (left.length && right.length) {
-//       left[0].color = "red";
-//       right[0].color = "red";
-//       switch (compare(left[0].num, right[0].num)) {
-//         case -1:
-//           merged.push(left.shift());
-//           break
-//         case 0:
-//           merged.push(left.shift());
-//           break
-//         case 1:
-//           merged.push(right.shift());
-//           break
-//       }
-//       debugger
-//     }
-//
-//   merged = merged.concat(left).concat(right);
-//   debugger
-//   redrawBars();
-//   return merged
-// }
+var wrapFunction = function(fn, context, params) {
+    return function() {
+        fn.apply(context, params);
+    };
+}
 
 function mergeSort(data, lower, higher) {
   if (lower < higher) {
@@ -196,7 +181,7 @@ function mergeSort(data, lower, higher) {
 }
 
 function merge(data, lower, mid, higher) {
-  debugger
+  // debugger
     var i = lower;
     var j = mid + 1;
     var k = 0;
@@ -228,15 +213,30 @@ function merge(data, lower, mid, higher) {
         }
     }
 
+    // // debugger
+    // var a = 0;
+    // sort = setInterval(function() {
+    //   if (a < k) {
+    //     data[(lower+a)] = mergearr[a];
+    //     redrawBars();
+    //   } else {
+    //     clearInterval(sort);
+    //     return data;
+    //   }
+    //   a++;
+    //   // a++;
+    // }, 1);
+
 
     for (var a = 0; a < k; a++) {
-        console.log(a);
         data[(lower+a)] = mergearr[a];
-        console.log(data[a]);
-        redrawBars();
+        var temp = Object.assign({}, data)
+        // debugger
+        // funqueue.push(wrapFunction(redrawBars, this, [temp] ))
+        funqueue.push(temp)
     }
-
     return data;
+
 }
 
 function insertionSort(data) {
@@ -259,7 +259,7 @@ function insertionSort(data) {
           swapped = false;
           j++;
         }
-        redrawBars();
+        redrawBars(data);
         data[i+1].color="blue"
         i--;
       } else {
@@ -271,7 +271,7 @@ function insertionSort(data) {
     }
     data[0].color = "blue";
 
-    redrawBars();
+    redrawBars(data);
   }, 30);
 }
 
@@ -286,7 +286,7 @@ function bubbleSort(data) {
       data[i+1].color = "red";
       if (data[i].num >= data[i+1].num) {
         sorted = false;
-        redrawBars();
+        redrawBars(data);
         swapEl(i, i+1);
       }
       data[i].color = "gray";
@@ -305,37 +305,9 @@ function bubbleSort(data) {
         clearInterval(sort);
       }
     }
-    redrawBars();
+    redrawBars(data);
   }, 30)
 }
-
-function betterMergeSort(data) {
-
-  var n = 1, i = 1;
-  sort = setInterval(function() {
-    if (n < 6) {
-      if (i <= (data.length / (Math.pow(2,n)))) {
-
-
-
-
-
-      } else {
-        i = 1;
-        n++;
-      }
-      redrawBars();
-      i++;
-    } else {
-      clearInterval(sort);
-    }
-
-    redrawBars();
-
-  }, 30);
-
-}
-
 
 
 
