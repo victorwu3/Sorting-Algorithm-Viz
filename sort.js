@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
   resetData();
 
+  cocktailSort(data);
 })
 
 function resetData() {
@@ -184,12 +185,6 @@ function betterSelectionSort(data) {
 
 function compare(left, right) {
   return left < right ? -1 : left > right ? 1 : 0;
-}
-
-var wrapFunction = function(fn, context, params) {
-    return function() {
-        fn.apply(context, params);
-    };
 }
 
 function mergeSort(data, lower, higher) {
@@ -335,9 +330,89 @@ function bubbleSort(data) {
   }, 30)
 }
 
+function quickSort(data, left, right){
+   var len = data.length,
+   pivot,
+   partitionIndex;
 
 
+  if(left < right){
+    pivot = right;
+    partitionIndex = partition(data, pivot, left, right);
 
+   //sort left and right
+   quickSort(data, left, partitionIndex - 1);
+   quickSort(data, partitionIndex + 1, right);
+  }
+  return data;
+}
+
+function partition(arr, pivot, left, right){
+   var pivotValue = arr[pivot],
+       partitionIndex = left;
+
+   for(var i = left; i < right; i++){
+    if(arr[i] < pivotValue){
+      swap(arr, i, partitionIndex);
+      partitionIndex++;
+    }
+  }
+  swap(right, partitionIndex);
+  return partitionIndex;
+}
+
+function cocktailSort(data)
+{
+	var swapped = true;
+  var ascending = true;
+  var descending = false;
+  var i = 0;
+  sort = setInterval(function() {
+    debugger
+    if (true) {
+      swapped = false;
+      if (ascending) {
+        if (i < data.length - 2) {
+          if(data[i].num > data[i+1].num) {
+            // data[i].color = "red"
+            swapEl(i, i+1);
+            swapped = true;
+            redrawBars(data);
+            // i++
+          }
+          // data[i].color = "gray"
+          i++
+        } else {
+          // if (!swapped) {
+          //   clearInterval(sort);
+          // }
+          i = data.length - 2
+          ascending = false
+          descending = true
+        }
+        // i++
+      } else {
+        if (i > 0) {
+          if(data[i].num > data[i+1].num) {
+            swapEl(i, i+1)
+            swapped = true;
+            // redrawBars();
+          }
+          i--
+        } else {
+          i = 0
+          ascending = true
+          descending = false
+        }
+        // i--
+      }
+    } else {
+      // clearInterval(sort);
+    }
+    redrawBars(data);
+    // data[i-1].color="gray"
+  }, 10)
+}
 
 
 
