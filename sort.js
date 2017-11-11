@@ -7,32 +7,55 @@ const scale = d3.scaleLinear().domain([1, 40]).range([10,400])
 var nums;
 var funqueue = [];
 var tempdata;
+var sort;
 
 
 document.addEventListener('DOMContentLoaded', ()=> {
   document.querySelector("#reset").addEventListener("click", () => {
+    if (sort) {
+      clearInterval(sort);
+    }
     resetData();
   });
 
   document.querySelector("#selection").addEventListener("click", () => {
-    tempData = Object.assign([], data);
-    drawBars(tempData)
-    betterSelectionSort(tempData);
+    if (sort) {
+      clearInterval(sort);
+    }
+    resetData();
+    //
+    // tempData = Object.assign([], data);
+    // drawBars(tempData)
+    betterSelectionSort(data);
   })
   document.querySelector("#insertion").addEventListener("click", () => {
-    tempData = Object.assign([], data);
-    drawBars(tempData)
-    insertionSort(tempData);
+    if (sort) {
+      clearInterval(sort);
+    }
+    resetData();
+    // tempData = Object.assign([], data);
+    // drawBars(tempData)
+    // debugger
+    insertionSort(data);
   })
   document.querySelector("#bubble").addEventListener("click", () => {
-    tempData = Object.assign([], data);
-    drawBars(tempData)
-    bubbleSort(tempData);
+    if (sort) {
+      clearInterval(sort);
+    }
+    resetData();
+    // tempData = Object.assign([], data);
+    // drawBars(tempData)
+    // debugger
+    bubbleSort(data);
   })
   document.querySelector("#merge").addEventListener("click", () => {
-    tempData = Object.assign([], data);
-    drawBars(tempData)
     debugger
+    if (sort) {
+      clearInterval(sort);
+    }
+
+    tempData = Object.assign([], data);
+    // debugger
     mergeSort(tempData, 0, data.length - 1);
 
     sort = setInterval(function() {
