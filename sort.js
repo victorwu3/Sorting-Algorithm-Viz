@@ -85,7 +85,7 @@ function drawBars(data) {
 }
 
 function redrawBars() {
-  debugger
+  // debugger
   var rects = svg.selectAll("rect").data(data).transition().duration(50);
 
   rects.attr("x", function(el, i) {
@@ -196,13 +196,13 @@ function mergeSort(data, lower, higher) {
 }
 
 function merge(data, lower, mid, higher) {
+  debugger
     var i = lower;
     var j = mid + 1;
     var k = 0;
     var mergearr = [];
 
-    while (i < j && j <= higher) {
-      debugger
+    while (i <= mid && j <= higher) {
         if (data[i].num <= data[j].num) {
             mergearr[k] = data[i];
             k++;
@@ -215,27 +215,27 @@ function merge(data, lower, mid, higher) {
     }
 
     if (i === j) {
-      debugger
-        while (j < higher) {
+        while (j <= higher) {
             mergearr[k] = data[j];
             k++;
             j++;
         }
-    } else if (j > higher) {
-      debugger
-        while (i < j) {
+    } else {
+        while (i <= mid) {
             mergearr[k] = data[i];
             k++;
             i++;
         }
     }
 
-    for (var a = 0; a <= k; a++) {
+
+    for (var a = 0; a < k; a++) {
         console.log(a);
-        data[a] = mergearr[a];
+        data[(lower+a)] = mergearr[a];
         console.log(data[a]);
+        redrawBars();
     }
-    redrawBars();
+
     return data;
 }
 
