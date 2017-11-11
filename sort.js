@@ -6,6 +6,7 @@ var state = {default: 0, selected: 1}
 const scale = d3.scaleLinear().domain([1, 40]).range([10,400])
 var nums;
 var funqueue = [];
+var tempdata;
 
 
 document.addEventListener('DOMContentLoaded', ()=> {
@@ -15,16 +16,37 @@ document.addEventListener('DOMContentLoaded', ()=> {
   });
 
   document.querySelector("#selection").addEventListener("click", () => {
-    resetData();
-    betterSelectionSort(data);
+    // resetData();
+    drawBars(tempData)
+    betterSelectionSort(tempData);
   })
   document.querySelector("#insertion").addEventListener("click", () => {
-    resetData();
-    insertionSort(data);
+    // resetData();
+    drawBars(tempData)
+    insertionSort(tempData);
   })
   document.querySelector("#bubble").addEventListener("click", () => {
-    resetData();
-    bubbleSort(data);
+    // resetData();
+    drawBars(tempData)
+    bubbleSort(tempData);
+  })
+  document.querySelector("#merge").addEventListener("click", () => {
+    // resetData();
+    debugger;
+    drawBars(tempData)
+    mergeSort(tempData, 0, data.length - 1);
+
+    // var newdata = Object.values(funqueue)
+    // newdata = newdata.map(el=> Object.values(el));
+    sort = setInterval(function() {
+      // debugger
+      if (funqueue.length > 0) {
+        // debugger
+        redrawBars(funqueue.shift());
+      } else {
+        clearInterval(sort);
+      }
+    }, 30)
   })
 
   svg = d3.select('#array')
@@ -36,19 +58,19 @@ document.addEventListener('DOMContentLoaded', ()=> {
   resetData();
 
 // debugger
-mergeSort(data, 0, data.length - 1);
+// mergeSort(data, 0, data.length - 1);
 // debugger
-  var newdata = Object.values(funqueue)
-  newdata = newdata.map(el=> Object.values(el));
-  sort = setInterval(function() {
-    debugger
-    if (newdata.length > 0) {
-      // debugger
-      redrawBars(newdata.shift());
-    } else {
-      clearInterval(sort);
-    }
-  }, 30)
+  // var newdata = Object.values(funqueue)
+  // newdata = newdata.map(el=> Object.values(el));
+  // sort = setInterval(function() {
+  //   debugger
+  //   if (newdata.length > 0) {
+  //     // debugger
+  //     redrawBars(newdata.shift());
+  //   } else {
+  //     clearInterval(sort);
+  //   }
+  // }, 30)
 
 // redrawBars(data);
 })
@@ -62,6 +84,7 @@ function resetData() {
     data.push( { num: Math.ceil((Math.random() * length)), color: "gray" } )
   }
   nums = data.map( (el) => el.num )
+  tempData = Object.assign([], data);
   drawBars(data);
 }
 
@@ -212,7 +235,7 @@ function merge(data, lower, mid, higher) {
 
     for (var a = 0; a < k; a++) {
         data[(lower+a)] = mergearr[a];
-        var temp = Object.assign({}, data)
+        var temp = Object.assign([], data)
         // debugger
         // temp[(lower+a)].color = "red";
         debugger
