@@ -11,37 +11,32 @@ var tempdata;
 
 document.addEventListener('DOMContentLoaded', ()=> {
   document.querySelector("#reset").addEventListener("click", () => {
-    // debugger
     resetData();
   });
 
   document.querySelector("#selection").addEventListener("click", () => {
-    // resetData();
+    tempData = Object.assign([], data);
     drawBars(tempData)
     betterSelectionSort(tempData);
   })
   document.querySelector("#insertion").addEventListener("click", () => {
-    // resetData();
+    tempData = Object.assign([], data);
     drawBars(tempData)
     insertionSort(tempData);
   })
   document.querySelector("#bubble").addEventListener("click", () => {
-    // resetData();
+    tempData = Object.assign([], data);
     drawBars(tempData)
     bubbleSort(tempData);
   })
   document.querySelector("#merge").addEventListener("click", () => {
-    // resetData();
-    debugger;
+    tempData = Object.assign([], data);
     drawBars(tempData)
+    debugger
     mergeSort(tempData, 0, data.length - 1);
 
-    // var newdata = Object.values(funqueue)
-    // newdata = newdata.map(el=> Object.values(el));
     sort = setInterval(function() {
-      // debugger
       if (funqueue.length > 0) {
-        // debugger
         redrawBars(funqueue.shift());
       } else {
         clearInterval(sort);
@@ -54,25 +49,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
           .attr('width', w)
           .attr('height', h);
 
-  // debugger
   resetData();
 
-// debugger
-// mergeSort(data, 0, data.length - 1);
-// debugger
-  // var newdata = Object.values(funqueue)
-  // newdata = newdata.map(el=> Object.values(el));
-  // sort = setInterval(function() {
-  //   debugger
-  //   if (newdata.length > 0) {
-  //     // debugger
-  //     redrawBars(newdata.shift());
-  //   } else {
-  //     clearInterval(sort);
-  //   }
-  // }, 30)
-
-// redrawBars(data);
 })
 
 function resetData() {
@@ -238,7 +216,7 @@ function merge(data, lower, mid, higher) {
         var temp = Object.assign([], data)
         // debugger
         // temp[(lower+a)].color = "red";
-        debugger
+        // debugger
         // funqueue.push(wrapFunction(redrawBars, this, [temp] ))
         funqueue.push(temp)
     }
