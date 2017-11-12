@@ -76,6 +76,23 @@ document.addEventListener('DOMContentLoaded', ()=> {
       }
     }, 20)
   })
+  document.querySelector("#quick").addEventListener("click", () => {
+    if (sort) {
+      clearInterval(sort);
+      funqueue = []
+    }
+    resetData();
+    tempData = Object.assign([], data);
+    quickSort(data, 0, data.length - 1);
+    debugger
+    sort = setInterval(function() {
+      if (funqueue.length > 0) {
+        redrawBars(funqueue.shift());
+      } else {
+        clearInterval(sort);
+      }
+    }, 20)
+  })
 
   svg = d3.select('#array')
           .append("svg")
@@ -240,7 +257,7 @@ function merge(data, lower, mid, higher) {
         var temp = Object.assign([], data)
         // temp[(lower+a)].color = "red";
         // funqueue.push(wrapFunction(redrawBars, this, [temp] ))
-        funqueue.push(temp.slice(0))
+        funqueue.push(temp)
         // temp[(lower+a)].color = "lightgray";
 
     }
@@ -336,6 +353,7 @@ function bubbleSort(data) {
   }, 20)
 }
 
+
 function quickSort(data, left, right){
    var len = data.length,
    pivot,
@@ -353,17 +371,21 @@ function quickSort(data, left, right){
   return data;
 }
 
-function partition(arr, pivot, left, right){
-   var pivotValue = arr[pivot],
-       partitionIndex = left;
+function partition(data, pivot, left, right){
+  var pivotValue = data[pivot].num,
+  partitionIndex = left;
 
-   for(var i = left; i < right; i++){
-    if(arr[i] < pivotValue){
-      swap(arr, i, partitionIndex);
+  for(var i = left; i < right; i++){
+    if(data[i].num < pivotValue){
+      swapEl(i, partitionIndex);
+      var temp = Object.assign([], data)
+      funqueue.push(temp)
       partitionIndex++;
     }
   }
-  swap(right, partitionIndex);
+  swapEl(right, partitionIndex);
+  var temp = Object.assign([], data)
+  funqueue.push(temp)
   return partitionIndex;
 }
 
