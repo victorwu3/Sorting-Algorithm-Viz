@@ -48,12 +48,22 @@ document.addEventListener('DOMContentLoaded', ()=> {
     // debugger
     bubbleSort(data);
   })
+  document.querySelector("#cocktail").addEventListener("click", () => {
+    if (sort) {
+      clearInterval(sort);
+    }
+    resetData();
+    // tempData = Object.assign([], data);
+    // drawBars(tempData)
+    // debugger
+    cocktailSort(data);
+  })
   document.querySelector("#merge").addEventListener("click", () => {
     debugger
     if (sort) {
       clearInterval(sort);
     }
-
+    resetData();
     tempData = Object.assign([], data);
     // debugger
     mergeSort(tempData, 0, data.length - 1);
@@ -74,7 +84,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
   resetData();
 
-  cocktailSort(data);
 })
 
 function resetData() {
@@ -363,43 +372,58 @@ function partition(arr, pivot, left, right){
 
 function cocktailSort(data)
 {
-	var swapped = true;
+	var swapped = 0;
   var ascending = true;
   var descending = false;
   var i = 0;
   sort = setInterval(function() {
     debugger
     if (true) {
-      swapped = false;
+      // swapped = false;
       if (ascending) {
         if (i < data.length - 2) {
           if(data[i].num > data[i+1].num) {
-            // data[i].color = "red"
             swapEl(i, i+1);
-            swapped = true;
-            redrawBars(data);
+            // swapped = true;
+            // data[i].color = "gray"
+            // data[i+1].color = "gray"
             // i++
+          } else {
+            swapped++
           }
           // data[i].color = "gray"
+          data[i].color = "red"
+          data[i+1].color = "red"
+          redrawBars(data);
           i++
         } else {
-          // if (!swapped) {
-          //   clearInterval(sort);
-          // }
+          if (swapped === data.length - 2) {
+            clearInterval(sort);
+          }
           i = data.length - 2
           ascending = false
           descending = true
+          swapped = 0
         }
         // i++
       } else {
+
         if (i > 0) {
           if(data[i].num > data[i+1].num) {
             swapEl(i, i+1)
-            swapped = true;
+            // swapped = true;
             // redrawBars();
+          } else {
+            swapped++;
           }
+          data[i].color = "red"
+          data[i-1].color = "red"
           i--
         } else {
+          if (swapped === data.length - 2) {
+            clearInterval(sort);
+          }
+          swapped = 0
           i = 0
           ascending = true
           descending = false
@@ -410,6 +434,9 @@ function cocktailSort(data)
       // clearInterval(sort);
     }
     redrawBars(data);
+    data[i].color = "gray"
+    data[i+1].color = "gray"
+    if (i>0) data[i-1].color = "gray"
     // data[i-1].color="gray"
   }, 10)
 }
