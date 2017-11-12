@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
   document.querySelector("#merge").addEventListener("click", () => {
     if (sort) {
       clearInterval(sort);
+      funqueue = []
     }
     resetData();
     tempData = Object.assign([], data);
