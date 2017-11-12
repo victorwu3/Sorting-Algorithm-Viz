@@ -3,7 +3,7 @@ var h = 700;
 var svg;
 var data;
 var state = {default: 0, selected: 1}
-const scale = d3.scaleLinear().domain([1, 64]).range([5,650])
+const scale = d3.scaleLinear().domain([1, 200]).range([5,650])
 var nums;
 var funqueue = [];
 var tempdata;
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
       } else {
         clearInterval(sort);
       }
-    }, 30)
+    }, 20)
   })
 
   svg = d3.select('#array')
@@ -92,7 +92,7 @@ function resetData() {
   data = [];
 
   for (var i = 0; i < length; i++) {
-    data.push( { num: Math.ceil((Math.random() * length)), color: "gray" } )
+    data.push( { num: Math.ceil((Math.random() * 200)), color: "lightgray" } )
   }
   nums = data.map( (el) => el.num )
   tempData = Object.assign([], data);
@@ -126,7 +126,7 @@ function drawBars(data) {
     return scale(el.num);
   });
 
-  rects.attr("fill", "gray");
+  rects.attr("fill", "lightgray");
 }
 
 function redrawBars(data) {
@@ -171,7 +171,7 @@ function betterSelectionSort(data) {
       }
       if (j === data.length - 1) {
         if (swap) {
-          data[min_idx].color = "gray";
+          data[min_idx].color = "lightgray";
           swapEl(min_idx, i);
         }
         data[i].color = "blue";
@@ -179,7 +179,7 @@ function betterSelectionSort(data) {
         i++;
       }
       redrawBars(data);
-      data[j].color = "gray";
+      data[j].color = "lightgray";
     } else {
       data[i].color = "blue";
       redrawBars(data);
@@ -187,7 +187,7 @@ function betterSelectionSort(data) {
     }
 
     j++;
-  }, 30);
+  }, 20);
 }
 
 function compare(left, right) {
@@ -241,7 +241,7 @@ function merge(data, lower, mid, higher) {
         // temp[(lower+a)].color = "red";
         // funqueue.push(wrapFunction(redrawBars, this, [temp] ))
         funqueue.push(temp.slice(0))
-        // temp[(lower+a)].color = "gray";
+        // temp[(lower+a)].color = "lightgray";
 
     }
 
@@ -299,7 +299,7 @@ function insertionSort(data) {
     data[0].color = "blue";
 
     redrawBars(data);
-  }, 30);
+  }, 20);
 }
 
 function bubbleSort(data) {
@@ -316,7 +316,7 @@ function bubbleSort(data) {
         redrawBars(data);
         swapEl(i, i+1);
       }
-      data[i].color = "gray";
+      data[i].color = "lightgray";
       i++
     } else {
       data[j].color = "blue"
@@ -333,7 +333,7 @@ function bubbleSort(data) {
       }
     }
     redrawBars(data);
-  }, 30)
+  }, 20)
 }
 
 function quickSort(data, left, right){
@@ -391,15 +391,18 @@ function cocktailSort(data) {
           i++
         } else {
           ending = true;
-          if (swapped === (upper-lower)) {
-            clearInterval(sort);
-          }
           upper--
           data[i].color="blue"
           i = upper
           ascending = false
           descending = true
           swapped = 0
+          if (swapped === (upper-lower)) {
+            data.forEach(el => {
+              el.color = "blue"
+            })
+            clearInterval(sort);
+          }
         }
       } else {
 
@@ -415,33 +418,36 @@ function cocktailSort(data) {
           i--
         } else {
           ending = true
-          if (swapped === (upper-lower)) {
-            clearInterval(sort);
-          }
           data[i].color="blue"
-          data[i+1].color="gray"
+          data[i+1].color="lightgray"
 
           lower++
           swapped = 0
           i = lower
           ascending = true
           descending = false
+          if (swapped === (upper-lower)) {
+            data.forEach(el => {
+              el.color = "blue"
+            })
+            clearInterval(sort);
+          }
         }
       }
     } else {
     }
     redrawBars(data);
     if (!ending) {
-      data[i].color = "gray"
+      data[i].color = "lightgray"
       if (i > lower) {
-        data[i-1].color = "gray"
+        data[i-1].color = "lightgray"
       }
       if (descending) {
-        data[i+1].color = "gray"
+        data[i+1].color = "lightgray"
       }
     } else {}
 
-  }, 30)
+  }, 20)
 }
 
 function bogoSort(data) {
