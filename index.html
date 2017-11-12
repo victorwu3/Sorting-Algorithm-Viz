@@ -5,14 +5,15 @@
     <title>Sorting Algorithm Visualization</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3-scale.v1.min.js"></script>
+    <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="sort.js"></script>
   </head>
   <body>
 
     <header>
      <div class="header-row">
-       <h1>By: Victor Wu</h1>
-       <h2>Sort Me!</h2>
+       <h2>By: Victor Wu</h2>
+       <h1>Sort Me!</h1>
        <div>
          <p>Connect with me here</p>
          <div class="row">
@@ -22,14 +23,16 @@
      </div>
 
     </header>
+    <div class="button-container">
+      <button id="reset">Reset Data</button>
+      <button id="selection">Selection Sort</button>
+      <button id="insertion">Insertion Sort</button>
+      <button id="bubble">Bubble Sort</button>
+      <button id="merge">Merge Sort</button>
+      <button id="cocktail">Cocktail Sort</button>
+      <button id="bogo">Bogo Sort</button>
+    </div>
 
-    <button id="reset">Reset Data</button>
-    <button id="selection">Selection Sort</button>
-    <button id="insertion">Insertion Sort</button>
-    <button id="bubble">Bubble Sort</button>
-    <button id="merge">Merge Sort</button>
-    <button id="cocktail">Cocktail Sort</button>
-    <button id="bogo">Bogo Sort</button>
 
     <div class="array" id="array"></div>
 

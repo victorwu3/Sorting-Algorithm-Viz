@@ -369,11 +369,13 @@ function cocktailSort(data) {
 	var swapped = 0;
   var ascending = true;
   var descending = false;
+  var upper = data.length - 1
+  var lower = 0;
   var i = 0;
   sort = setInterval(function() {
     if (true) {
       if (ascending) {
-        if (i < data.length - 2) {
+        if (i < upper) {
           if(data[i].num > data[i+1].num) {
             swapEl(i, i+1);
             // data[i].color = "gray"
@@ -388,19 +390,21 @@ function cocktailSort(data) {
           redrawBars(data);
           i++
         } else {
-          if (swapped === data.length - 2) {
+          if (swapped === (upper-lower)) {
             clearInterval(sort);
           }
-          i = data.length - 2
+          upper--
+          i = upper
           ascending = false
           descending = true
           swapped = 0
+          // upper = upper - 1;
         }
       } else {
 
-        if (i > 0) {
-          if(data[i].num > data[i+1].num) {
-            swapEl(i, i+1)
+        if (i > lower) {
+          if(data[i-1].num > data[i].num) {
+            swapEl(i, i-1)
             // redrawBars();
           } else {
             swapped++;
@@ -409,21 +413,27 @@ function cocktailSort(data) {
           data[i-1].color = "red"
           i--
         } else {
-          if (swapped === data.length - 2) {
+          if (swapped === (upper-lower)) {
             clearInterval(sort);
           }
+          lower++
           swapped = 0
-          i = 0
+          i = lower
           ascending = true
           descending = false
+          // lower = lower + 1;
         }
       }
     } else {
     }
     redrawBars(data);
-    data[i].color = "gray"
-    data[i+1].color = "gray"
-    if (i>0) data[i-1].color = "gray"
+    if (i < data.length - 1) {
+      data[i].color = "gray"
+      data[i+1].color = "gray"
+      if (i>0) data[i-1].color = "gray"
+      if (i>0) data[i-1].color = "gray"
+
+    }
     // data[i-1].color="gray"
   }, 10)
 }
