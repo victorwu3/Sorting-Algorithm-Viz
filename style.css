@@ -1,11 +1,24 @@
-.body {
+@import url("font-awesome.min.css");
+
+
+body {
   /*align-items: center;
   justify-content: center;*/
+  font-family: sans-serif;
+}
+
+header {
+  border-bottom: 1px solid black;
+  margin-bottom: 3rem;
+  /*align-items: center;*/
+  /*justify-content: center;*/
+
 }
 
 .header-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .button-container {
@@ -18,4 +31,41 @@
 .array {
   width: 800px;
   margin: 0 auto;
+}
+
+.icons {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  font-size: 40px;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.icon {
+	text-decoration: none;
+	border-bottom: none;
+	position: relative;
+}
+
+.icon:before {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: normal;
+	text-transform: none !important;
+}
+
+.icon > .label {
+	display: none;
+}
+
+a {
+  -moz-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  -ms-transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  text-decoration: none;
+  color: black;
 }

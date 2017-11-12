@@ -3,7 +3,7 @@ var h = 700;
 var svg;
 var data;
 var state = {default: 0, selected: 1}
-const scale = d3.scaleLinear().domain([1, 40]).range([10,400])
+const scale = d3.scaleLinear().domain([1, 64]).range([5,650])
 var nums;
 var funqueue = [];
 var tempdata;
@@ -240,7 +240,9 @@ function merge(data, lower, mid, higher) {
         var temp = Object.assign([], data)
         // temp[(lower+a)].color = "red";
         // funqueue.push(wrapFunction(redrawBars, this, [temp] ))
-        funqueue.push(temp)
+        funqueue.push(temp.slice(0))
+        // temp[(lower+a)].color = "gray";
+
     }
 
 
@@ -371,41 +373,40 @@ function cocktailSort(data) {
   var descending = false;
   var upper = data.length - 1
   var lower = 0;
+  var ending = false;
   var i = 0;
   sort = setInterval(function() {
     if (true) {
       if (ascending) {
         if (i < upper) {
+          ending = false;
           if(data[i].num > data[i+1].num) {
             swapEl(i, i+1);
-            // data[i].color = "gray"
-            // data[i+1].color = "gray"
-            // i++
           } else {
             swapped++
           }
-          // data[i].color = "gray"
           data[i].color = "red"
           data[i+1].color = "red"
           redrawBars(data);
           i++
         } else {
+          ending = true;
           if (swapped === (upper-lower)) {
             clearInterval(sort);
           }
           upper--
+          data[i].color="blue"
           i = upper
           ascending = false
           descending = true
           swapped = 0
-          // upper = upper - 1;
         }
       } else {
 
         if (i > lower) {
+          ending = false
           if(data[i-1].num > data[i].num) {
             swapEl(i, i-1)
-            // redrawBars();
           } else {
             swapped++;
           }
@@ -413,29 +414,34 @@ function cocktailSort(data) {
           data[i-1].color = "red"
           i--
         } else {
+          ending = true
           if (swapped === (upper-lower)) {
             clearInterval(sort);
           }
+          data[i].color="blue"
+          data[i+1].color="gray"
+
           lower++
           swapped = 0
           i = lower
           ascending = true
           descending = false
-          // lower = lower + 1;
         }
       }
     } else {
     }
     redrawBars(data);
-    if (i < data.length - 1) {
+    if (!ending) {
       data[i].color = "gray"
-      data[i+1].color = "gray"
-      if (i>0) data[i-1].color = "gray"
-      if (i>0) data[i-1].color = "gray"
+      if (i > lower) {
+        data[i-1].color = "gray"
+      }
+      if (descending) {
+        data[i+1].color = "gray"
+      }
+    } else {}
 
-    }
-    // data[i-1].color="gray"
-  }, 10)
+  }, 30)
 }
 
 function bogoSort(data) {
