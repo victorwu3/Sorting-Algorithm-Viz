@@ -9,6 +9,12 @@ var funqueue = [];
 var tempdata;
 var sort;
 
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        swapEl(i,j)
+    }
+}
 
 document.addEventListener('DOMContentLoaded', ()=> {
   document.querySelector("#reset").addEventListener("click", () => {
@@ -57,6 +63,16 @@ document.addEventListener('DOMContentLoaded', ()=> {
     // drawBars(tempData)
     // debugger
     cocktailSort(data);
+  })
+  document.querySelector("#bogo").addEventListener("click", () => {
+    if (sort) {
+      clearInterval(sort);
+    }
+    resetData();
+    // tempData = Object.assign([], data);
+    // drawBars(tempData)
+    // debugger
+    bogoSort(data);
   })
   document.querySelector("#merge").addEventListener("click", () => {
     debugger
@@ -370,8 +386,7 @@ function partition(arr, pivot, left, right){
   return partitionIndex;
 }
 
-function cocktailSort(data)
-{
+function cocktailSort(data) {
 	var swapped = 0;
   var ascending = true;
   var descending = false;
@@ -441,7 +456,12 @@ function cocktailSort(data)
   }, 10)
 }
 
-
+function bogoSort(data) {
+  sort = setInterval(function() {
+    shuffle(data)
+    redrawBars(data)
+  }, 500)
+}
 
 
 
