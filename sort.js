@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
     bogoSort(data);
   })
   document.querySelector("#merge").addEventListener("click", () => {
-    debugger
+    // debugger
     if (sort) {
       clearInterval(sort);
     }
@@ -392,7 +392,7 @@ function cocktailSort(data) {
   var descending = false;
   var i = 0;
   sort = setInterval(function() {
-    debugger
+    // debugger
     if (true) {
       // swapped = false;
       if (ascending) {
