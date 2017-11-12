@@ -1,9 +1,9 @@
 var w = 800;
-var h = 700;
+var h = 600;
 var svg;
 var data;
 var state = {default: 0, selected: 1}
-const scale = d3.scaleLinear().domain([1, 200]).range([5,650])
+const scale = d3.scaleLinear().domain([1, 200]).range([5,550])
 var nums;
 var funqueue = [];
 var tempdata;
