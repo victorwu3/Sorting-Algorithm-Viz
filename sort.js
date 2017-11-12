@@ -29,9 +29,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
       clearInterval(sort);
     }
     resetData();
-    //
-    // tempData = Object.assign([], data);
-    // drawBars(tempData)
     betterSelectionSort(data);
   })
   document.querySelector("#insertion").addEventListener("click", () => {
@@ -39,9 +36,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
       clearInterval(sort);
     }
     resetData();
-    // tempData = Object.assign([], data);
-    // drawBars(tempData)
-    // debugger
     insertionSort(data);
   })
   document.querySelector("#bubble").addEventListener("click", () => {
@@ -49,9 +43,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
       clearInterval(sort);
     }
     resetData();
-    // tempData = Object.assign([], data);
-    // drawBars(tempData)
-    // debugger
     bubbleSort(data);
   })
   document.querySelector("#cocktail").addEventListener("click", () => {
@@ -59,9 +50,6 @@ document.addEventListener('DOMContentLoaded', ()=> {
       clearInterval(sort);
     }
     resetData();
-    // tempData = Object.assign([], data);
-    // drawBars(tempData)
-    // debugger
     cocktailSort(data);
   })
   document.querySelector("#bogo").addEventListener("click", () => {
@@ -69,19 +57,14 @@ document.addEventListener('DOMContentLoaded', ()=> {
       clearInterval(sort);
     }
     resetData();
-    // tempData = Object.assign([], data);
-    // drawBars(tempData)
-    // debugger
     bogoSort(data);
   })
   document.querySelector("#merge").addEventListener("click", () => {
-    // debugger
     if (sort) {
       clearInterval(sort);
     }
     resetData();
     tempData = Object.assign([], data);
-    // debugger
     mergeSort(tempData, 0, data.length - 1);
 
     sort = setInterval(function() {
@@ -122,7 +105,6 @@ function swapEl(x, y) {
 }
 
 function drawBars(data) {
-  // reset drawing
   d3.select("svg").selectAll("*").remove();
 
   var rects = svg.selectAll("rect").data(data).enter().append("rect");
@@ -147,7 +129,6 @@ function drawBars(data) {
 }
 
 function redrawBars(data) {
-  // debugger
   var rects = svg.selectAll("rect").data(data).transition().duration(50);
 
   rects.attr("x", function(el, i) {
@@ -222,7 +203,6 @@ function mergeSort(data, lower, higher) {
 }
 
 function merge(data, lower, mid, higher) {
-  // debugger
     var i = lower;
     var j = mid + 1;
     var k = 0;
@@ -257,9 +237,7 @@ function merge(data, lower, mid, higher) {
     for (var a = 0; a < k; a++) {
         data[(lower+a)] = mergearr[a];
         var temp = Object.assign([], data)
-        // debugger
         // temp[(lower+a)].color = "red";
-        // debugger
         // funqueue.push(wrapFunction(redrawBars, this, [temp] ))
         funqueue.push(temp)
     }
@@ -392,14 +370,11 @@ function cocktailSort(data) {
   var descending = false;
   var i = 0;
   sort = setInterval(function() {
-    // debugger
     if (true) {
-      // swapped = false;
       if (ascending) {
         if (i < data.length - 2) {
           if(data[i].num > data[i+1].num) {
             swapEl(i, i+1);
-            // swapped = true;
             // data[i].color = "gray"
             // data[i+1].color = "gray"
             // i++
@@ -420,13 +395,11 @@ function cocktailSort(data) {
           descending = true
           swapped = 0
         }
-        // i++
       } else {
 
         if (i > 0) {
           if(data[i].num > data[i+1].num) {
             swapEl(i, i+1)
-            // swapped = true;
             // redrawBars();
           } else {
             swapped++;
@@ -443,10 +416,8 @@ function cocktailSort(data) {
           ascending = true
           descending = false
         }
-        // i--
       }
     } else {
-      // clearInterval(sort);
     }
     redrawBars(data);
     data[i].color = "gray"
