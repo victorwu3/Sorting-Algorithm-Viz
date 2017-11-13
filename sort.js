@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         last.forEach(el => {
           el.color = "blue"
         })
-        redrawBars(last)      
+        redrawBars(last)
       }
     }, 20)
   })
@@ -263,11 +263,17 @@ function merge(data, lower, mid, higher) {
     }
 
     for (var a = 0; a < k; a++) {
-        data[(lower+a)] = mergearr[a];
+        var tempobject = Object.assign({}, mergearr[a])
+        tempobject.color="red"
+        data[(lower+a)] = tempobject;
         var temp = Object.assign([], data)
         // temp[(lower+a)].color = "red";
         // funqueue.push(wrapFunction(redrawBars, this, [temp] ))
         funqueue.push(temp)
+        var tempobject2 = Object.assign({}, mergearr[a])
+        tempobject2.color="lightgray"
+        data[(lower+a)] = tempobject2
+        // data[(lower+a)].color = "gray"
         // temp[(lower+a)].color = "lightgray";
 
     }
@@ -388,14 +394,34 @@ function partition(data, pivot, left, right){
   for(var i = left; i < right; i++){
     if(data[i].num < pivotValue){
       swapEl(i, partitionIndex);
-      var temp = Object.assign([], data)
+      var tempobject = Object.assign({}, data[i]);
+      tempobject.color = "red";
+      var tempobject2 = Object.assign({}, data[pivot]);
+      tempobject2.color = "green";
+      data[i] = tempobject;
+      data[pivot] = tempobject2;
+      var temp = Object.assign([], data);
       funqueue.push(temp)
+      var tempobject3 = Object.assign({}, data[i]);
+      tempobject3.color = "lightgray"
+      var tempobject4 = Object.assign({}, data[pivot]);
+      tempobject4.color = "lightgray";
+      data[i] = tempobject3;
+      data[pivot] = tempobject4;
       partitionIndex++;
     }
   }
   swapEl(right, partitionIndex);
+  var tempobject = Object.assign({}, data[right]);
+  tempobject.color = "red";
+  data[right] = tempobject;
+
   var temp = Object.assign([], data)
   funqueue.push(temp)
+
+  var tempobject2 = Object.assign({}, data[right])
+  tempobject2.color = "lightgray"
+  data[right] = tempobject2
   return partitionIndex;
 }
 
