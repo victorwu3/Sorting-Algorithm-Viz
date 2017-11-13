@@ -8,6 +8,7 @@ var nums;
 var funqueue = [];
 var tempdata;
 var sort;
+var speed;
 
 function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -25,41 +26,47 @@ document.addEventListener('DOMContentLoaded', ()=> {
   });
 
   document.querySelector("#selection").addEventListener("click", () => {
+    speed = parseInt(document.querySelector("#speed").value)
     if (sort) {
       clearInterval(sort);
     }
     resetData();
-    betterSelectionSort(data);
+    betterSelectionSort(data, speed);
   })
   document.querySelector("#insertion").addEventListener("click", () => {
+    speed = parseInt(document.querySelector("#speed").value)
     if (sort) {
       clearInterval(sort);
     }
     resetData();
-    insertionSort(data);
+    insertionSort(data, speed);
   })
   document.querySelector("#bubble").addEventListener("click", () => {
+    speed = parseInt(document.querySelector("#speed").value)
     if (sort) {
       clearInterval(sort);
     }
     resetData();
-    bubbleSort(data);
+    bubbleSort(data, speed);
   })
   document.querySelector("#cocktail").addEventListener("click", () => {
+    speed = parseInt(document.querySelector("#speed").value)
     if (sort) {
       clearInterval(sort);
     }
     resetData();
-    cocktailSort(data);
+    cocktailSort(data, speed);
   })
   document.querySelector("#bogo").addEventListener("click", () => {
+    speed = parseInt(document.querySelector("#speed").value)
     if (sort) {
       clearInterval(sort);
     }
     resetData();
-    bogoSort(data);
+    bogoSort(data, speed);
   })
   document.querySelector("#merge").addEventListener("click", () => {
+    speed = parseInt(document.querySelector("#speed").value)
     if (sort) {
       clearInterval(sort);
       funqueue = []
@@ -80,9 +87,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
         })
         redrawBars(last)
       }
-    }, 20)
+    }, speed)
   })
   document.querySelector("#quick").addEventListener("click", () => {
+    speed = parseInt(document.querySelector("#speed").value)
     if (sort) {
       clearInterval(sort);
       funqueue = []
@@ -101,7 +109,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         })
         redrawBars(last)
       }
-    }, 20)
+    }, speed)
   })
 
   svg = d3.select('#array')
@@ -180,7 +188,7 @@ function redrawBars(data) {
   });
 }
 
-function betterSelectionSort(data) {
+function betterSelectionSort(data, speed) {
   var swap, i = 0, j = i + 1, min_idx = i
   swap = false;
 
@@ -214,7 +222,7 @@ function betterSelectionSort(data) {
     }
 
     j++;
-  }, 20);
+  }, speed);
 }
 
 function compare(left, right) {
@@ -299,7 +307,7 @@ function merge(data, lower, mid, higher) {
 
 }
 
-function insertionSort(data) {
+function insertionSort(data, speed) {
   var i = 0, j = 1;
   var swapped;
   data[0].color = "blue";
@@ -332,10 +340,10 @@ function insertionSort(data) {
     data[0].color = "blue";
 
     redrawBars(data);
-  }, 20);
+  }, speed);
 }
 
-function bubbleSort(data) {
+function bubbleSort(data, speed) {
   var i = 0;
   var sorted = true;
   var j = data.length - 1;
@@ -366,7 +374,7 @@ function bubbleSort(data) {
       }
     }
     redrawBars(data);
-  }, 20)
+  }, speed)
 }
 
 
@@ -425,7 +433,7 @@ function partition(data, pivot, left, right){
   return partitionIndex;
 }
 
-function cocktailSort(data) {
+function cocktailSort(data, speed) {
 	var swapped = 0;
   var ascending = true;
   var descending = false;
@@ -505,14 +513,14 @@ function cocktailSort(data) {
       }
     } else {}
 
-  }, 20)
+  }, speed)
 }
 
-function bogoSort(data) {
+function bogoSort(data, speed) {
   sort = setInterval(function() {
     shuffle(data)
     redrawBars(data)
-  }, 500)
+  }, speed)
 }
 
 

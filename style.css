@@ -104,3 +104,14 @@ button {
   background-color: black;
   color: red;
 }
+
+.speed-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+.speed-label {
+  /*margin-left: 1rem;*/
+}
