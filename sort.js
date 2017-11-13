@@ -525,5 +525,4 @@ function bogoSort(data, speed) {
 
 
 
-
 //
