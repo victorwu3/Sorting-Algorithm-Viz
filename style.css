@@ -10,7 +10,7 @@ body {
 
 header {
   border-bottom: 1px solid lightgray;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   /*align-items: center;*/
   /*justify-content: center;*/
   /*background-color: white;*/
@@ -108,10 +108,11 @@ button {
 .speed-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   color: white;
 }
 
 .speed-label {
   /*margin-left: 1rem;*/
+  font-size: 2rem;
 }
