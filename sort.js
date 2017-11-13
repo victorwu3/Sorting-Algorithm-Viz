@@ -275,34 +275,11 @@ function merge(data, lower, mid, higher) {
         tempobject.color="red"
         data[(lower+a)] = tempobject;
         var temp = Object.assign([], data)
-        // temp[(lower+a)].color = "red";
-        // funqueue.push(wrapFunction(redrawBars, this, [temp] ))
         funqueue.push(temp)
         var tempobject2 = Object.assign({}, mergearr[a])
         tempobject2.color="lightgray"
         data[(lower+a)] = tempobject2
-        // data[(lower+a)].color = "gray"
-        // temp[(lower+a)].color = "lightgray";
-
     }
-
-
-    // var a = 0;
-    // sort = setInterval(function(){
-    //   if (a < k) {
-    //     data[(lower+a)] = mergearr[a];
-    //     data[(lower+a)].color = "red";
-    //     debugger
-    //     redrawBars(data);
-    //   } else {
-    //     clearInterval(sort)
-    //   }
-    //   a++;
-    // }, 500)
-
-
-
-
     return data;
 
 }
