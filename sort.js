@@ -68,11 +68,17 @@ document.addEventListener('DOMContentLoaded', ()=> {
     tempData = Object.assign([], data);
     mergeSort(tempData, 0, data.length - 1);
 
+
     sort = setInterval(function() {
-      if (funqueue.length > 0) {
+      if (funqueue.length > 1) {
         redrawBars(funqueue.shift());
       } else {
         clearInterval(sort);
+        var last = funqueue.pop();
+        last.forEach(el => {
+          el.color = "blue"
+        })
+        redrawBars(last)
       }
     }, 20)
   })
@@ -84,12 +90,16 @@ document.addEventListener('DOMContentLoaded', ()=> {
     resetData();
     tempData = Object.assign([], data);
     quickSort(data, 0, data.length - 1);
-    debugger
     sort = setInterval(function() {
-      if (funqueue.length > 0) {
+      if (funqueue.length > 1) {
         redrawBars(funqueue.shift());
       } else {
         clearInterval(sort);
+        var last = funqueue.pop();
+        last.forEach(el => {
+          el.color = "blue"
+        })
+        redrawBars(last)      
       }
     }, 20)
   })
