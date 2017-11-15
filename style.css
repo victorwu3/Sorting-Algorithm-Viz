@@ -108,7 +108,7 @@ button {
 .speed-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   color: white;
 }
 
@@ -124,4 +124,15 @@ button {
 .numblocks {
   color: white;
   margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+input {
+  border-radius: 5px;
+}
+
+.ui {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -35,20 +35,23 @@
      </div>
 
     </header>
-    <div class="speed-container">
-      <label class="speed-label">Fast
+    <div class="ui">
+      <div class="speed-container">
+        <label class="speed-label">Fast
 
-      <input type="range" id="speed" value="20" min="1" max"1000">
-      <label class="speed-label">Slow
+        <input type="range" id="speed" value="20" min="1" max"1000">
+        <label class="speed-label">Slow
+      </div>
+      <div class="counter">
+        <label for="">Number of steps</label>
+        <input type="text" id="counter" value="0" readonly="readonly" />
+      </div>
+      <div class="numblocks">
+        <label for="">Number of blocks</label>
+        <input type="number" id="numblocks" value="64"/>
+      </div>
     </div>
-    <div class="counter">
-      <label for="">Number of steps</label>
-      <input type="text" id="counter" value="0" readonly="readonly" />
-    </div>
-    <div class="numblocks">
-      <label for="">Number of blocks</label>
-      <input type="number" id="numblocks" value="64"/>
-    </div>
+
 
     <div class="button-container">
       <button id="reset">Reset Data</button>
