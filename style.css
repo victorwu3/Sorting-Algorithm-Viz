@@ -116,3 +116,7 @@ button {
   /*margin-left: 1rem;*/
   font-size: 2rem;
 }
+
+.counter {
+  color: white;
+}

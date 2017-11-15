@@ -9,6 +9,7 @@ var funqueue = [];
 var tempdata;
 var sort;
 var speed;
+var count;
 
 function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -77,6 +78,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
 
     sort = setInterval(function() {
+      updateCounter();
+
       if (funqueue.length > 1) {
         redrawBars(funqueue.shift());
       } else {
@@ -99,6 +102,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
     tempData = Object.assign([], data);
     quickSort(data, 0, data.length - 1);
     sort = setInterval(function() {
+      updateCounter();
+
       if (funqueue.length > 1) {
         redrawBars(funqueue.shift());
       } else {
@@ -121,8 +126,13 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
 })
 
+function updateCounter() {
+  count++;
+  document.querySelector("#counter").setAttribute("value", count);
+}
 function resetData() {
-  length = 64;
+  length = 10;
+  count=0;
 
   data = [];
 
@@ -193,6 +203,7 @@ function betterSelectionSort(data, speed) {
   swap = false;
 
   sort = setInterval(function() {
+    updateCounter();
     if (j >= data.length) {
       min_idx = i;
       j = i + 1;
@@ -290,6 +301,8 @@ function insertionSort(data, speed) {
   data[0].color = "blue";
 
   sort = setInterval(function() {
+    updateCounter();
+
     if (swapped === false) {
       i = j - 1;
     }
@@ -326,6 +339,8 @@ function bubbleSort(data, speed) {
   var j = data.length - 1;
 
   sort = setInterval(function() {
+    updateCounter();
+
     if (i < j) {
       data[i].color = "red";
       data[i+1].color = "red";
@@ -419,6 +434,8 @@ function cocktailSort(data, speed) {
   var ending = false;
   var i = 0;
   sort = setInterval(function() {
+    updateCounter();
+
     if (true) {
       if (ascending) {
         if (i < upper) {
@@ -494,12 +511,29 @@ function cocktailSort(data, speed) {
 }
 
 function bogoSort(data, speed) {
+  var sortedArray
   sort = setInterval(function() {
+    updateCounter();
     shuffle(data)
     redrawBars(data)
+    sortedArray = data.map(el=>el.num).sort((a,b)=>a-b);
+    if (arraysEqual(data.map(el=>el.num), sortedArray)) {
+      clearInterval(sort);
+      data.forEach(el => {
+        el.color = "blue"
+      });
+      redrawBars(data);
+    }
   }, speed)
 }
 
+function arraysEqual(a, b) {
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
 
 
 //
