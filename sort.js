@@ -133,7 +133,7 @@ function updateCounter() {
 }
 function resetData() {
   numblocks = document.querySelector("#numblocks").value;
-  length = numblocks;
+  length = numblocks > 200 ? 200 : numblocks;
   count=0;
 
   data = [];
