@@ -9,6 +9,7 @@ var funqueue = [];
 var tempdata;
 var sort;
 var speed;
+var numblocks;
 var count;
 
 function shuffle(a) {
@@ -131,7 +132,8 @@ function updateCounter() {
   document.querySelector("#counter").setAttribute("value", count);
 }
 function resetData() {
-  length = 10;
+  numblocks = document.querySelector("#numblocks").value;
+  length = numblocks;
   count=0;
 
   data = [];
