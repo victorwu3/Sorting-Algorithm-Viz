@@ -599,7 +599,7 @@ function heapify(data, i) {
         var tempobject = Object.assign({}, data[i]);
         tempobject.color = "red";
         var tempobject2 = Object.assign({}, data[max]);
-        tempobject2.color = "green";
+        tempobject2.color = "red";
         data[i] = tempobject;
         data[max] = tempobject2;
         var temp = Object.assign([], data);
@@ -627,7 +627,7 @@ function heapSort(data) {
           var tempobject = Object.assign({}, data[i]);
           tempobject.color = "red";
           var tempobject2 = Object.assign({}, data[0]);
-          tempobject2.color = "red";
+          tempobject2.color = "green";
           data[i] = tempobject;
           data[0] = tempobject2;
           var temp = Object.assign([], data);
