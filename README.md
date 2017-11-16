@@ -7,6 +7,7 @@ Sort Me! is a data visualization app for sorting algorithms. It uses the data vi
 
 Here is the live demo: http://victorwu.me/Sorting-Algorithm-Viz/
 
+![merge/quicksort](https://media.giphy.com/media/26Ffcu0uHQFguiLE4/giphy.gif)
 
 ## Features
 - D3.js data visualization library
