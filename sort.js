@@ -56,9 +56,25 @@ document.addEventListener('DOMContentLoaded', ()=> {
     speed = parseInt(document.querySelector("#speed").value)
     if (sort) {
       clearInterval(sort);
+      funqueue = []
     }
     resetData();
-    heapSort(data, speed);
+    tempData = Object.assign([], data);
+    heapSort(data);
+    sort = setInterval(function() {
+      updateCounter();
+
+      if (funqueue.length > 1) {
+        redrawBars(funqueue.shift());
+      } else {
+        clearInterval(sort);
+        var last = funqueue.pop();
+        last.forEach(el => {
+          el.color = "blue"
+        })
+        redrawBars(last)
+      }
+    }, speed)
   })
   document.querySelector("#cocktail").addEventListener("click", () => {
     speed = parseInt(document.querySelector("#speed").value)
@@ -550,57 +566,82 @@ function heapify(data, i) {
     var left = 2 * i + 1;
     var right = 2 * i + 2;
     var max = i;
-    data[i].color = "red";
+    var tempobject = Object.assign({}, data[i])
+    tempobject.color = "red"
+    var temp = Object.assign([], data)
+
+    if (left < data.length) {
+      var tempobject = Object.assign({}, data[left])
+      tempobject.color = "red"
+      var temp = Object.assign([], data)
+
+    }
+    if (right < data.length) {
+      var tempobject = Object.assign({}, data[right])
+      tempobject.color = "red"
+      var temp = Object.assign([], data)
+
+    }
+    funqueue.push(temp)
+    var tempobject2 = Object.assign({}, data[i])
+    tempobject2.color = "lightgray"
+    data[i] = tempobject2
+
     if (left < array_length && data[left].num > data[max].num) {
         max = left;
-        data[max].color = "red"
     }
 
     if (right < array_length && data[right].num > data[max].num)     {
         max = right;
-        data[max].color = "red"
     }
     if (max != i) {
         swapEl(i, max);
-        redrawBars(data)
+        var tempobject = Object.assign({}, data[i]);
+        tempobject.color = "red";
+        var tempobject2 = Object.assign({}, data[max]);
+        tempobject2.color = "green";
+        data[i] = tempobject;
+        data[max] = tempobject2;
+        var temp = Object.assign([], data);
+        funqueue.push(temp)
+        var tempobject3 = Object.assign({}, data[i]);
+        tempobject3.color = "lightgray"
+        var tempobject4 = Object.assign({}, data[max]);
+        tempobject4.color = "lightgray";
+        data[i] = tempobject3;
+        data[max] = tempobject4;
         heapify(data, max);
     }
-    data[i].color = "lightgray"
-    if (left < array_length) data[left].color = "lightgray"
-    if (right < array_length) data[right].color = "lightgray"
 }
 
-function heapSort(data, speed) {
+function heapSort(data) {
   array_length = data.length
 
   var i = Math.floor(data.length / 2)
 
-  sort = setInterval(function(){
-    if (i >= 0) {
+  for (i; i >= 0; i--){
       heapify(data, i)
-      i--
-    } else {
-      clearInterval(sort)
-      i = data.length - 1
-      sort = setInterval(function(){
-        if (i > 0) {
-          data[i].color = "red"
-          data[0].color = "red"
-          swapEl(0, i)
-          redrawBars(data)
+    }
+
+  for (i = data.length - 1; i >0; i--) {
+          var tempobject = Object.assign({}, data[i]);
+          tempobject.color = "red";
+          var tempobject2 = Object.assign({}, data[0]);
+          tempobject2.color = "red";
+          data[i] = tempobject;
+          data[0] = tempobject2;
+          var temp = Object.assign([], data);
+          funqueue.push(temp)
+          var tempobject3 = Object.assign({}, data[i]);
           data[i].color = "blue"
+          var tempobject4 = Object.assign({}, data[0]);
+          tempobject4.color = "blue";
+          data[0] = tempobject4;
+          data[i].color = "blue"
+          swapEl(0, i)
           array_length--;
           heapify(data, 0);
-          i--
-        } else {
-          clearInterval(sort)
-          data[0].color = "blue"
-          redrawBars(data)
-        }
-
-      }, speed)
     }
-  }, speed)
+  }
 
-}
 //
