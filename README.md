@@ -18,11 +18,11 @@ Here is the live demo: http://victorwu.me/Sorting-Algorithm-Viz/
 - Step counter for number of steps for each sort
 
 ## Sorts Implemented
-- Selection Sort
-- Insertion Sort
-- Bubble Sort
-- Heap Sort
-- Merge Sort
-- Quick Sort
-- Cocktail Sort
-- Bogo Sort
+- Selection Sort - O(n^2)
+- Insertion Sort - O(n^2)
+- Bubble Sort - O(n^2)
+- Heap Sort - O(n logn)
+- Merge Sort - O(n logn)
+- Quick Sort - O(n^2)
+- Cocktail Sort - O(n^2)
+- Bogo Sort - O(N!)
