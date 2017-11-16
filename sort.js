@@ -11,6 +11,7 @@ var sort;
 var speed;
 var numblocks;
 var count;
+var array_length;
 
 function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -50,6 +51,14 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
     resetData();
     bubbleSort(data, speed);
+  })
+  document.querySelector("#heap").addEventListener("click", () => {
+    speed = parseInt(document.querySelector("#speed").value)
+    if (sort) {
+      clearInterval(sort);
+    }
+    resetData();
+    heapSort(data, speed);
   })
   document.querySelector("#cocktail").addEventListener("click", () => {
     speed = parseInt(document.querySelector("#speed").value)
@@ -537,5 +546,61 @@ function arraysEqual(a, b) {
   return true;
 }
 
+function heapify(data, i) {
+    var left = 2 * i + 1;
+    var right = 2 * i + 2;
+    var max = i;
+    data[i].color = "red";
+    if (left < array_length && data[left].num > data[max].num) {
+        max = left;
+        data[max].color = "red"
+    }
 
+    if (right < array_length && data[right].num > data[max].num)     {
+        max = right;
+        data[max].color = "red"
+    }
+    if (max != i) {
+        swapEl(i, max);
+        redrawBars(data)
+        heapify(data, max);
+    }
+    data[i].color = "lightgray"
+    if (left < array_length) data[left].color = "lightgray"
+    if (right < array_length) data[right].color = "lightgray"
+}
+
+function heapSort(data, speed) {
+  array_length = data.length
+
+  var i = Math.floor(data.length / 2)
+
+  sort = setInterval(function(){
+    if (i >= 0) {
+      heapify(data, i)
+      i--
+    } else {
+      clearInterval(sort)
+      i = data.length - 1
+      sort = setInterval(function(){
+        if (i > 0) {
+          data[i].color = "red"
+          data[0].color = "red"
+          swapEl(0, i)
+          redrawBars(data)
+          data[i].color = "blue"
+          array_length--;
+          heapify(data, 0);
+          i--
+        } else {
+          clearInterval(sort)
+          data[0].color = "blue"
+          redrawBars(data)
+        }
+
+      }, speed)
+    }
+  }, speed)
+
+}
 //
