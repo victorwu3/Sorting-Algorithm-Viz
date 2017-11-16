@@ -77,8 +77,8 @@ a {
 button {
   font-size: 15px;
   border-radius: 4px;
-  border-color: gray;
-  font-family: "copperplate", sans-serif;
+  border-color: black;
+  font-family: "copperplate", serif;
 
 }
 
@@ -86,19 +86,25 @@ button {
   background-color: #ffffff
 }
 #selection {
-  background-color: #4CAF50;
+  background-color: #917f7e;
 }
 #insertion {
-  background-color: #008CBA;
+  background-color: #9083b7;
 }
 #bubble {
-  background-color: #f44336;
+  background-color: #3f6fbe;
+}
+#heap {
+  background-color: #b4a28a;
 }
 #merge {
-  background-color: #e7e7e7;
+  background-color: #0d353f;
+}
+#quick {
+  background-color: #64494e
 }
 #cocktail {
-  background-color: #DEB887;
+  background-color: #6c4cc1;
 }
 #bogo {
   background-color: black;
