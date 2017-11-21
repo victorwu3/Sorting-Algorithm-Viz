@@ -25,4 +25,6 @@ let handleModalButtons = () =>{
   });
 }
 
-handleModalButtons();
+document.addEventListener('DOMContentLoaded', ()=> {
+  handleModalButtons();
+});
