@@ -166,8 +166,8 @@ input {
 }
 
 .modal-backdrop{
-  z-index: 100;
   position: fixed;
+  z-index: 100;
   background-color: rgba(0,0,0,0.6);
   left: 0;
   right: 0;
