@@ -3,7 +3,7 @@ body {
   /*align-items: center;
   justify-content: center;*/
   font-family: "copperplate", sans-serif;
-  background-image: url("space.jpg");
+  background-image: url("../images/space.jpg");
   background-size: 100%;
   /*font: "copperplate";*/
 }

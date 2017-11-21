@@ -1,5 +1,5 @@
 
-let handleModalButtons = () =>{
+export const handleModalButtons = () =>{
   let infoButton = document.querySelector('#info-modal');
   let modalDiv = document.querySelector('#modal-location');
 
@@ -24,7 +24,3 @@ let handleModalButtons = () =>{
     });
   });
 }
-
-document.addEventListener('DOMContentLoaded', ()=> {
-  handleModalButtons();
-});
