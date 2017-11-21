@@ -3,7 +3,7 @@ body {
   /*align-items: center;
   justify-content: center;*/
   font-family: "copperplate", sans-serif;
-  background-image: url("../images/space.jpg");
+  background-image: url("space.jpg");
   background-size: 100%;
   /*font: "copperplate";*/
 }
@@ -166,8 +166,8 @@ input {
 }
 
 .modal-backdrop{
-  position: fixed;
   z-index: 100;
+  position: fixed;
   background-color: rgba(0,0,0,0.6);
   left: 0;
   right: 0;
