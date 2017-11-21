@@ -79,7 +79,7 @@ button {
   border-radius: 4px;
   border-color: black;
   font-family: "copperplate", serif;
-
+  cursor: pointer;
 }
 
 #reset {
@@ -147,21 +147,21 @@ input {
 
 
 .modal-button{
-  position: absolute;
+  /*position: absolute;*/
   padding: 3px;
   width: 70px;
   height: 30px;
   border-radius: 5%;
-  background-color: lightgray;
+  background-color: gray;
   color: white;
   font-weight: 700;
-  right: 500px;
-  top: 40px;
+  /*right: 500px;*/
+  /*top: 40px;*/
   text-align: center;
   font-size: 30px;
 }
 .modal-button:hover{
-  background-color: gray;
+  background-color: lightgray;
   cursor: pointer;
 }
 
