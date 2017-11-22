@@ -1,17 +1,7 @@
-var w = 800;
-var h = 600;
-var svg;
-var data;
-var state = {default: 0, selected: 1}
+let svg, data, nums, tempdata, sort, speed, numblocks, count, array_length;
+const state = {default: 0, selected: 1}
 const scale = d3.scaleLinear().domain([1, 200]).range([5,550])
-var nums;
-var funqueue = [];
-var tempdata;
-var sort;
-var speed;
-var numblocks;
-var count;
-var array_length;
+let funqueue = [];
 
 function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -145,8 +135,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
   svg = d3.select('#array')
           .append("svg")
-          .attr('width', w)
-          .attr('height', h);
+          .attr('width', 800)
+          .attr('height', 600);
 
   resetData();
 
@@ -178,6 +168,8 @@ function swapEl(x, y) {
 }
 
 function drawBars(data) {
+  let w = 800;
+  let h = 600;
   d3.select("svg").selectAll("*").remove();
 
   var rects = svg.selectAll("rect").data(data).enter().append("rect");
@@ -202,6 +194,8 @@ function drawBars(data) {
 }
 
 function redrawBars(data) {
+  let w = 800;
+  let h = 600;
   var rects = svg.selectAll("rect").data(data).transition().duration(50);
 
   rects.attr("x", function(el, i) {
@@ -643,5 +637,3 @@ function heapSort(data) {
           heapify(data, 0);
     }
   }
-
-//
